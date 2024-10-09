@@ -222,7 +222,12 @@ def search_pa_list(src: List[str]) -> List[str]:
         a list of answers. Will be ["I don't understand"] if it finds no matches and
         ["No answers"] if it finds a match but no answers
     """
-    pass
+
+    for pattern, action in pa_list:
+        if match(pattern, src) != None:
+            answers = action(match(pattern, src))
+            return answers if answers else ["No answers"]
+    return ["I don't understand"]
 
 
 def query_loop() -> None:
@@ -242,6 +247,7 @@ def query_loop() -> None:
             break
 
     print("\nSo long!\n")
+
 
 
 # uncomment the following line once you've written all of your code and are ready to try
@@ -318,3 +324,4 @@ if __name__ == "__main__":
     ) == sorted(["No answers"]), "failed search_pa_list test 3"
 
     print("All tests passed!")
+
